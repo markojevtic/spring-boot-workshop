@@ -1,0 +1,12 @@
+version: '3'
+services:
+  mongo:
+    image: mongo:latest
+    container_name: pd-mongo
+    ports:
+        - "27017:27017"
+  redis:
+    image: redis:alpine
+    container_name: pd-redis
+    ports:
+      - "6379:6379"
