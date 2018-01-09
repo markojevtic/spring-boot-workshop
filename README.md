@@ -36,14 +36,19 @@ Default docker ip is 192.168.99.100, but sometimes docker run on a different add
 * Run Docker
 * Clone this project to your machine
 * goto [PROJECT_DIR]/docker 
-* start containers
+* start containers by running following commands:
     ```
-    $./starup.sh
+    $./start.sh
     $ docker ps
     CONTAINER ID        IMAGE               COMMAND                  CREATED                  STATUS              PORTS                      NAMES
     90efa77cff81        mongo:latest        "docker-entrypoint..."   Less than a second ago   Up 8 seconds        0.0.0.0:27017->27017/tcp   pd-mongo
     17cd03e9d433        redis:alpine        "docker-entrypoint..."   Less than a second ago   Up 8 seconds        0.0.0.0:6379->6379/tcp     pd-redis
     ```
 * Import the project `spring-boot-workshop` into your IDE
-* Run test TestEnvApplicationTests.java, it should be green.
+* Run test `TestEnvApplicationTests.java`, it should be green.
 * If you have any problem don't hesitate to ask for help :)
+
+###### Optional tools
+The following tools are very useful, but it's not required for this workshop:
+* [RoboMongo](https://robomongo.org) - MongoDB GUI client
+* [RedisDesktopManager](https://redisdesktop.com/) - Redis GUI client.
