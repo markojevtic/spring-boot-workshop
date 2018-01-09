@@ -1,4 +1,4 @@
 # Created by .ignore support plugin (hsz.mobi)
 .gitignore
 .idea/
-/spring-boot-worshop.iml
+spring-boot-worshop.iml
