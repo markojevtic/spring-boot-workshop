@@ -27,7 +27,9 @@ Since Redis doesn’t have official support for windows, we are going to use Doc
 * Install Docker
     * Windows 10/Mac/Linux - it should be straightforward
     * Windows 7 - you have to use docker toolbox, please read carefully instruction on Docker site.
-* Configure Docker/VirtualBox(Windows 7 only!) - because you run docker inside of VirtualBox, you have to manually configure port redirection.
+* Configure Docker/VirtualBox(Windows 7 only!) - because you run docker inside of VirtualBox, you have to manually configure port redirection. 
+Default docker ip is 192.168.99.100, but sometimes docker run on a different address, please check it after the run [see](./documentation/docker_toolbox.png).
+    
     ![Right click](./documentation/VirtualBoxSettings.png) 
     ![Button port forwarding](./documentation/VirtualBoxAdvanceSettings.png) 
     ![Mongo&Redis ports](./documentation/VirtualBoxPortForwardin.png)
