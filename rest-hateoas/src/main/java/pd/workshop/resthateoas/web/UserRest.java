@@ -1,16 +1,10 @@
 package pd.workshop.resthateoas.web;
 
-import com.google.common.collect.Maps;
 import java.util.Collections;
-import java.util.HashMap;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.convert.ConversionService;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
-import org.springframework.hateoas.Link;
 import org.springframework.hateoas.PagedResources;
-import org.springframework.hateoas.Resources;
 import org.springframework.hateoas.mvc.ControllerLinkBuilder;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
@@ -26,12 +20,19 @@ import static org.springframework.web.bind.annotation.RequestMethod.PUT;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import pd.workshop.resthateoas.domain.excpetion.NotFoundException;
-import pd.workshop.resthateoas.service.UserService;
 import pd.workshop.resthateoas.web.dto.UserDTO;
 
 @RestController
 @RequestMapping( value = "/users", produces = APPLICATION_JSON_UTF8_VALUE )
 public class UserRest {
+
+    public static final ControllerLinkBuilder createLink() {
+        return linkTo( UserRest.class );
+    }
+
+    public static final ControllerLinkBuilder creatSingleLink( Long id ) {
+        return linkTo( methodOn( UserRest.class ).getUser( id ) );
+    }
 
     @RequestMapping( method = GET )
     public PagedResources <UserDTO> search( @RequestParam( required = false ) String firstName,
@@ -43,41 +44,34 @@ public class UserRest {
 
     @RequestMapping( method = GET, path = "/{id}" )
     public ResponseEntity <UserDTO> getUser( @PathVariable Long id ) {
-        return ResponseEntity.ok( UserDTO.builder().userId( id ).build() );
+        UserDTO userDto = UserDTO.builder().userId( id ).build();
+        userDto.add( creatSingleLink( id ).withSelfRel() );
+        return ResponseEntity.ok( userDto );
     }
 
-    @RequestMapping(method = POST)
-    public ResponseEntity<UserDTO> insert(@RequestBody UserDTO user) {
+    @RequestMapping( method = POST )
+    public ResponseEntity <UserDTO> insert( @RequestBody UserDTO user ) {
         return ResponseEntity.ok( user );
     }
 
-    @RequestMapping(method = PUT)
-    public ResponseEntity<UserDTO> update(@RequestBody UserDTO user) {
+    @RequestMapping( method = PUT )
+    public ResponseEntity <UserDTO> update( @RequestBody UserDTO user ) {
         return ResponseEntity.ok( user );
     }
 
-    @RequestMapping(method = DELETE, path = "/{id}")
-    public ResponseEntity<Void> delete(@PathVariable Long id) {
+    @RequestMapping( method = DELETE, path = "/{id}" )
+    public ResponseEntity <Void> delete( @PathVariable Long id ) {
         return ResponseEntity.noContent().build();
     }
 
-    @RequestMapping(method = GET, path = "/{id}/error")
-    public ResponseEntity<Void> error(@PathVariable Long id) {
+    @RequestMapping( method = GET, path = "/{id}/error" )
+    public ResponseEntity <Void> error( @PathVariable Long id ) {
         return ResponseEntity.notFound().build();
     }
 
-    @RequestMapping(method = GET, path = "/{id}/exception")
-    public ResponseEntity<Void> exception(@PathVariable Long id) {
+    @RequestMapping( method = GET, path = "/{id}/exception" )
+    public ResponseEntity <Void> exception( @PathVariable Long id ) {
         throw new NotFoundException();
-    }
-
-
-    public static final ControllerLinkBuilder createLink() {
-        return linkTo( UserRest.class );
-    }
-
-    public static final ControllerLinkBuilder creatSingleLink(Long id) {
-        return linkTo( methodOn( UserRest.class ).getUser( id ) );
     }
 }
 

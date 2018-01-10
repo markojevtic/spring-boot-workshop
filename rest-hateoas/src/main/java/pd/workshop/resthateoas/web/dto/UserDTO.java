@@ -6,7 +6,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 import org.springframework.data.annotation.Id;
-import org.springframework.hateoas.Resource;
 import org.springframework.hateoas.ResourceSupport;
 
 @Builder
@@ -15,7 +14,6 @@ import org.springframework.hateoas.ResourceSupport;
 @AllArgsConstructor
 @NoArgsConstructor
 public class UserDTO extends ResourceSupport {
-    @Id
     private Long userId;
     private String firstName;
     private String lastName;

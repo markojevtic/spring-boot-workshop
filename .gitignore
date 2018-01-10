@@ -2,3 +2,4 @@
 .gitignore
 .idea/
 spring-boot-worshop.iml
+/spring-boot-worshop.iml

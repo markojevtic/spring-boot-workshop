@@ -32,7 +32,7 @@ public class Place {
     private Point location;
 
     private Integer population;
-    private Map<Gender, Integer> populationByGenders;
-    private List<PhotoMeta> photos;
+    private Map <Gender, Integer> populationByGenders;
+    private List <PhotoMeta> photos;
 
 }

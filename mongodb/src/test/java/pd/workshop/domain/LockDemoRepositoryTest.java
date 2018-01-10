@@ -1,6 +1,5 @@
 package pd.workshop.domain;
 
-import org.assertj.core.api.Assertions;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import org.junit.Test;
@@ -30,7 +29,7 @@ public class LockDemoRepositoryTest {
         lockDemoRepository.save( lockDemo );
         assertThat( lockDemo.getVersion() ).isEqualTo( 1L );
 
-        assertThat( lockDemoRepository.updateText(testId,  "Field update" )).isEqualTo( 1 );
+        assertThat( lockDemoRepository.updateText( testId, "Field update" ) ).isEqualTo( 1 );
 
         lockDemo = lockDemoRepository.findOne( testId );
         assertThat( lockDemo.getVersion() ).isEqualTo( 2L );
@@ -39,7 +38,7 @@ public class LockDemoRepositoryTest {
         //try to cheat
         final LockDemo cheatVersion = lockDemo;
         cheatVersion.setVersion( 1L );
-        assertThatThrownBy( ()->lockDemoRepository.save( cheatVersion ) ).isInstanceOf( OptimisticLockingFailureException.class );
+        assertThatThrownBy( () -> lockDemoRepository.save( cheatVersion ) ).isInstanceOf( OptimisticLockingFailureException.class );
     }
 
 }

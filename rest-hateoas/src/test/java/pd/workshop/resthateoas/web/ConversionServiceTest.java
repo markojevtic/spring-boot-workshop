@@ -3,7 +3,6 @@ package pd.workshop.resthateoas.web;
 import java.util.Arrays;
 import java.util.List;
 import static org.assertj.core.api.Java6Assertions.assertThat;
-import static org.assertj.core.api.Java6Assertions.assertThatThrownBy;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,7 +39,8 @@ public class ConversionServiceTest {
 
     @Test
     public void testListConverterGenericsGotcha() {
-        final List<UserDTO> result = conversionService.convert( Arrays.asList( MAX_MUSTERMANN ), (Class <List <UserDTO>>) (Object) List.class );
+        final List <UserDTO> result = conversionService
+                .convert( Arrays.asList( MAX_MUSTERMANN ), (Class <List <UserDTO>>) (Object) List.class );
         assertThat( result.get( 0 ) ).isInstanceOf( User.class );
     }
 }

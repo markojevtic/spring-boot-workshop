@@ -24,7 +24,7 @@ Because of easier communication I suggest that we should follow some conventions
                 * `impl`
             *  `web` - controllers
                 * `dto` - dto
-                * `converter` - converters                  
+                * `converter` - converters Dto to entity and                   
 * Class naming:
     * Entities, just name of entity without any suffix( i.e. `Idea, User, ...` )
     * Repository components with suffix Repository ( i.e. `IdeaRepository` )

@@ -1,6 +1,5 @@
 package pd.workshop.domain;
 
-import com.mongodb.DBObject;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
@@ -40,7 +39,7 @@ public class PlaceRepositoryTest {
         int repetition = 8;
         for( int r = 0; r < repetition; r++ ) {
             for( int i = 10; i <= 100000; i *= 10 ) {
-                System.err.println( "repetition: "+r+" size: "+i );
+                System.err.println( "repetition: " + r + " size: " + i );
                 List <Place> placeList = placeTestUtil.generatePlaces( i );
                 Long insertSave[] = resultMap.getOrDefault( i, new Long[] { 0L, 0L } );
                 placeRepository.deleteAll();
@@ -91,7 +90,7 @@ public class PlaceRepositoryTest {
         int count = placeRepository.vote( place.getId() );
         assertThat( count ).isEqualTo( 1 );
         Place placeAfterVote = placeRepository.findOne( place.getId() );
-        assertThat( placeAfterVote.getVotes() ).isEqualTo( startVotes+1 );
+        assertThat( placeAfterVote.getVotes() ).isEqualTo( startVotes + 1 );
     }
 
 }

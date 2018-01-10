@@ -1,18 +1,8 @@
 package pd.workshop.domain;
 
-import com.mongodb.BasicDBObject;
-import com.mongodb.DBObject;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
-import static java.util.stream.IntStream.range;
-import java.util.stream.StreamSupport;
-import static java.util.stream.StreamSupport.intStream;
-import javax.annotation.Generated;
-import org.assertj.core.util.Maps;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.geo.Point;
 import org.springframework.stereotype.Component;
@@ -43,25 +33,28 @@ public class PlaceTestUtil {
         for( int i = 0; i < count; i++ ) {
             placeList.add(
                     Place.builder()
-                        .id( "id" + i )
-                        .name( "Place" + i )
-                        .description( "Description" + i + ". Sring boot!" )
-                        .location( BELGRADE_LOCATION )
-                        .votes( 10L )
-                        .populationByGenders( new HashMap<Gender, Integer>( ) { {
-                            put( Gender.FEMALE,600000 );
-                            put( Gender.MALE, 500000 );
-                        }} )
-                        .photos( generatePhotos("Place" + i, 100) )
-                     .build() );
+                            .id( "id" + i )
+                            .name( "Place" + i )
+                            .description( "Description" + i + ". Sring boot!" )
+                            .location( BELGRADE_LOCATION )
+                            .votes( 10L )
+                            .populationByGenders( new HashMap <Gender, Integer>() {
+                                {
+                                    put( Gender.FEMALE, 600000 );
+                                    put( Gender.MALE, 500000 );
+                                }
+                            } )
+                            .photos( generatePhotos( "Place" + i, 100 ) )
+                            .build() );
         }
         return placeList;
     }
 
-    private List<PhotoMeta> generatePhotos(String placeName, int count ) {
-        List<PhotoMeta> photoMetas = new ArrayList <>();
-        for(int i=0; i<count; i++) {
-            photoMetas.add( PhotoMeta.builder().label( "Photo-"+i+" of "+placeName ).url( "https://en.wikipedia.org/wiki/Belgrade#/media/File:St._Sava_Temple.jpg" ).build() );
+    private List <PhotoMeta> generatePhotos( String placeName, int count ) {
+        List <PhotoMeta> photoMetas = new ArrayList <>();
+        for( int i = 0; i < count; i++ ) {
+            photoMetas.add( PhotoMeta.builder().label( "Photo-" + i + " of " + placeName )
+                    .url( "https://en.wikipedia.org/wiki/Belgrade#/media/File:St._Sava_Temple.jpg" ).build() );
         }
         return photoMetas;
     }

@@ -6,8 +6,7 @@ import org.springframework.stereotype.Service;
 import pd.workshop.resthateoas.domain.model.User;
 import pd.workshop.resthateoas.service.UserService;
 
-@Service
-class UserServiceImpl implements UserService {
+@Service class UserServiceImpl implements UserService {
     @Override
     public User getUser( Long id ) {
         //dummy implementation.
@@ -15,7 +14,7 @@ class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<User> filterByFirstNameAndLastName( String firstName, String lastName, Pageable pageable ) {
+    public List <User> filterByFirstNameAndLastName( String firstName, String lastName, Pageable pageable ) {
         //dummy implementation.
         return null;
     }

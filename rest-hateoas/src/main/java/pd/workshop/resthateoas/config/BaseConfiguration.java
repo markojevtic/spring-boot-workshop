@@ -12,9 +12,9 @@ import org.springframework.core.convert.support.DefaultConversionService;
 public class BaseConfiguration {
     @Bean
     @Primary
-    public ConversionService dtoConverters(Set<Converter<?, ?>> converters) {
+    public ConversionService dtoConverters( Set <Converter <?, ?>> converters ) {
         final DefaultConversionService defaultConversionService = new DefaultConversionService();
-        converters.forEach(c -> defaultConversionService.addConverter(c));
+        converters.forEach( c -> defaultConversionService.addConverter( c ) );
         return defaultConversionService;
     }
 }

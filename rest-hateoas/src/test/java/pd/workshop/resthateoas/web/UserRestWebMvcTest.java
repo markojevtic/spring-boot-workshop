@@ -51,9 +51,9 @@ public class UserRestWebMvcTest {
                 .build();
 
         mvc.perform( post( UserRest.createLink().toUri() )
-                    .accept( MediaType.APPLICATION_JSON_UTF8 )
-                    .contentType( MediaType.APPLICATION_JSON_UTF8 )
-                    .content( mapper.writeValueAsString( userDTO ) ) )
+                .accept( MediaType.APPLICATION_JSON_UTF8 )
+                .contentType( MediaType.APPLICATION_JSON_UTF8 )
+                .content( mapper.writeValueAsString( userDTO ) ) )
                 .andExpect( status().isOk() )
                 .andExpect( jsonPath( "$.userId" ).value( userDTO.getUserId() ) )
                 .andExpect( jsonPath( "$.firstName" ).value( userDTO.getFirstName() ) )
