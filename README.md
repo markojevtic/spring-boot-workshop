@@ -1,7 +1,7 @@
 # spring-boot-workshop
 
 ### About repository
-The repository is a collection of materials for spring boot training. It contains a few small maven projects with code example, training documentation and docker configuration.
+The repository is a collection of materials for spring boot workshop. It contains a few maven projects with code examples, training documentation and docker configuration.
 
 ### Preparation for the training
 
@@ -28,14 +28,14 @@ Since Redis doesn’t have official support for windows, we are going to use Doc
     * Windows 10/Mac/Linux - it should be straightforward
     * Windows 7 - you have to use docker toolbox, please read carefully instruction on Docker site.
 * Configure Docker/VirtualBox(Windows 7 only!) - because you run docker inside of VirtualBox, you have to manually configure port redirection. 
-Default docker ip is 192.168.99.100, but sometimes docker run on a different address, please check it after the run [see](./documentation/docker_toolbox.png).
+Default docker ip is 192.168.99.100, but sometimes docker run on a different address, please check it after the run [see](documentation/images/docker_toolbox.png).
     
-    ![Right click](./documentation/VirtualBoxSettings.png) 
-    ![Button port forwarding](./documentation/VirtualBoxAdvanceSettings.png) 
-    ![Mongo&Redis ports](./documentation/VirtualBoxPortForwardin.png)
+    ![Right click](documentation/images/VirtualBoxSettings.png) 
+    ![Button port forwarding](documentation/images/VirtualBoxAdvanceSettings.png) 
+    ![Mongo&Redis ports](documentation/images/VirtualBoxPortForwardin.png)
 * Run Docker
 * Clone this project to your machine
-* goto [PROJECT_DIR]/docker 
+* goto `[PROJECT_DIR]/docker` 
 * start containers by running following commands:
     ```
     $./start.sh
