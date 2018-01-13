@@ -22,6 +22,9 @@ public class ConversionServiceTest {
     @Autowired
     private ConversionService conversionService;
 
+    /**
+     * The test show how to use the conversion service to convert a list in the right way.
+     */
     @Test
     public void testConversionOfList() {
 
@@ -37,10 +40,15 @@ public class ConversionServiceTest {
 
     }
 
+    /**
+     * This test shows most common error for list conversation.
+     * It caused by misunderstanding of Java Generics and cheating compiler.
+     * To convert an list use example above.
+     */
     @Test
     public void testListConverterGenericsGotcha() {
         final List <UserDTO> result = conversionService
                 .convert( Arrays.asList( MAX_MUSTERMANN ), (Class <List <UserDTO>>) (Object) List.class );
-        assertThat( result.get( 0 ) ).isInstanceOf( User.class );
+        assertThat( (Object) result.get( 0 ) ).isInstanceOf( User.class );
     }
 }

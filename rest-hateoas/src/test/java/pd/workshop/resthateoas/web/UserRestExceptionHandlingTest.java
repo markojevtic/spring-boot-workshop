@@ -6,6 +6,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Matchers.anyLong;
+import static org.mockito.Mockito.doThrow;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.SpyBean;
@@ -38,9 +39,16 @@ public class UserRestExceptionHandlingTest {
         mvc = MockMvcBuilders.webAppContextSetup( webApplicationContext ).build();
     }
 
+    /**
+     * Shows how does exception handlers works, and how to test it.
+     * Warning: In real world, you should mock service layer, not to spy the controller.
+     */
     @Test
     public void testExceptionHandler() throws Exception {
-        given( userRest.getUser( anyLong() ) ).willThrow( new NotFoundException(), new ApplicationException() );
+        doThrow( new NotFoundException() )
+                .doThrow( new ApplicationException() )
+                .when( userRest ).getUser( anyLong() );
+
         Long id = 13L;
         mvc.perform( get( UserRest.creatSingleLink( id ).toString() )
                 .accept( MediaType.APPLICATION_JSON_UTF8 ) )
@@ -51,13 +59,19 @@ public class UserRestExceptionHandlingTest {
                 .andExpect( status().is5xxServerError() );
     }
 
+    /**
+     * Test shows how do custom exception handler and payload work.
+     * Warning: In real application do not spy controller, instead mock the services.
+     */
     @Test
     public void testCustomHandler() throws Exception {
         String anErrorText = "An error text";
         String fieldName = "testField";
         String theFieldErrorMessage = "the field is not valid";
-        given( userRest.getUser( anyLong() ) ).
-                willThrow( new ValidationException( anErrorText, Maps.newHashMap( fieldName, theFieldErrorMessage ) ) );
+
+        doThrow( new ValidationException( anErrorText, Maps.newHashMap( fieldName, theFieldErrorMessage ) ) )
+                .when( userRest ).getUser( anyLong() );
+
         Long id = 13L;
         mvc.perform( get( UserRest.creatSingleLink( id ).toString() )
                 .accept( MediaType.APPLICATION_JSON_UTF8 ) )
@@ -69,6 +83,9 @@ public class UserRestExceptionHandlingTest {
 
     }
 
+    /**
+     * Test shows the difference between exception handlers and programmatically error returning.
+     */
     @Test
     public void testErrorVsExceptionHandler() throws Exception {
         Long id = 13L;

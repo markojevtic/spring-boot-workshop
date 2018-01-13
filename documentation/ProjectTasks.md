@@ -11,7 +11,7 @@ In order to provide all those functionality we will do it trough implementing fu
 
 ## Stories
 
-#### Setup application
+#### [1] Setup application
 Create spring boot application skeleton, with mongoDB and HATEOAS dependencies. 
 Because of easier communication I suggest that we should follow some conventions, it's not necessary but will save our time.
 * package organisation firstly by features than by layers, i.e.:
@@ -32,18 +32,18 @@ Because of easier communication I suggest that we should follow some conventions
     * Rest controllers with suffix Resource ( i.e. `IdeaResource` )
     * DTO classes with suffix Dto (i.e. `IdeaDto` )
     * Unit test with suffix UnitTest ( i.e. `IdeaServiceImplUnitTest` )
-    * Component test with suffix ComponentTest ( i.e. `ComponentTest` )
+    * Component test with suffix ComponentTest ( i.e. `IdeaServiceImplComponentTest` )
     
-#### Idea RESTFull API
+#### [2] Idea RESTFull API
 Create all necessary entities and dtos, controllers, converters, etc. In this phrase we should provide only skeleton for service layer, 
 and we should not implement repository layer. Ensure that controller returns proper HTTP status. Write unit test. 
 ( Create and Load ) - on workshop, other operations at home.
 
-#### Idea Service and Repository layer
+#### [3] Idea Service and Repository layer
 Implement service and repository to support CRUD operation for Ideas. First implement create and load operations( other operations as homework). 
 Write component test to prove that service works as it is expected.
 
-#### Adding comments to existing Idea 
+#### [4] Adding comments to existing Idea 
 
 Implement everything what is necessary to support adding comments to an existing Idea. 
 Comments in this iteration should contains only 2 fields( comment text, and creation date ). Write necessary tests. 
