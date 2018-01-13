@@ -22,6 +22,7 @@
         <module>actuator-swagger</module>
         <module>rest-hateoas</module>
         <module>mongodb</module>
+        <module>security-rest</module>
         <module>test-env</module>
     </modules>
 </project>
