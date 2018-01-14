@@ -23,6 +23,7 @@
         <module>rest-hateoas</module>
         <module>mongodb</module>
         <module>security-rest</module>
+        <module>redis-and-cache</module>
         <module>test-env</module>
     </modules>
 </project>
