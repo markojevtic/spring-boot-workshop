@@ -1,5 +1,6 @@
 package pd.workshop.redisandcache.service;
 
+import java.util.Set;
 import java.util.SortedSet;
 import static org.assertj.core.api.Java6Assertions.assertThat;
 import org.junit.Before;
@@ -36,12 +37,16 @@ public class RedisSortedValueShowCaseTest {
     public void showSomeSetOps() {
         final String key = "TheSet";
 
+        //reset test data
+        redisTemplate.delete( key );
+
         ZSetOperations <String, String> valueOps = redisTemplate.opsForZSet();
         valueOps.add( key, "Value-1200", 1200 );
         valueOps.add( key, "Value-1000", 1000 );
         valueOps.add( key, "Value-1100", 1100 );
-        SortedSet <String> result = (SortedSet <String>) valueOps.rangeByLex( key, new RedisZSetCommands.Range().gte( 1112 ) );
-        assertThat( result.size() ).isEqualTo( 2 );
-        assertThat( result.last() ).isEqualTo( "Value-1100" );
+        Set<String> result = valueOps.reverseRangeByScore( key, 0, 1112, 0L, 1L);
+
+        assertThat( result.size() ).isEqualTo( 1 );
+        assertThat( result.iterator().next() ).isEqualTo( "Value-1100" );
     }
 }
