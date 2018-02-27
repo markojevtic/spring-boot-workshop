@@ -47,6 +47,6 @@ Default docker ip is 192.168.99.100, but sometimes docker run on a different add
 * If you have any problem don't hesitate to ask for help :)
 
 ###### Optional tools
-The following tools are very useful, but it's not required for this workshop:
+gtiThe following tools are very useful, but it's not required for this workshop:
 * [RoboMongo](https://robomongo.org) - MongoDB GUI client
 * [RedisDesktopManager](https://redisdesktop.com/) - Redis GUI client.
