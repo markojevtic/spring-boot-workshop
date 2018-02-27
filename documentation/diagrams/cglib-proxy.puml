@@ -1,0 +1,14 @@
+@startuml
+interface Service {
+doSomething()
+}
+
+class ServiceImpl {
+}
+
+class Proxy {
+}
+
+Service <|-- ServiceImpl
+ServiceImpl <|-- Proxy
+@enduml

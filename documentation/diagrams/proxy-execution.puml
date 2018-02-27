@@ -1,0 +1,19 @@
+@startuml
+participant ServiceCaller
+participant Proxy
+participant AopAdvices
+participant Target
+
+ServiceCaller -> Proxy : Call service method
+activate Proxy
+Proxy -> AopAdvices : execute AOPs
+activate AopAdvices
+AopAdvices -> Target : run real method
+activate Target
+Target -> AopAdvices : return result
+deactivate Target
+AopAdvices -> Proxy : execute AOPs
+deactivate AopAdvices
+Proxy -> ServiceCaller : return results
+deactivate Proxy
+@enduml

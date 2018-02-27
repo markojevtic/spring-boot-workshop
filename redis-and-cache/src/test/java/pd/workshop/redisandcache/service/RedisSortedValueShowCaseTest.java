@@ -2,6 +2,7 @@ package pd.workshop.redisandcache.service;
 
 import java.util.Set;
 import java.util.SortedSet;
+import javax.annotation.PostConstruct;
 import static org.assertj.core.api.Java6Assertions.assertThat;
 import org.junit.Before;
 import org.junit.Test;
@@ -35,7 +36,7 @@ public class RedisSortedValueShowCaseTest {
 
     @Test
     public void showSomeSetOps() {
-        final String key = "TheSet";
+        final String key = "PRODUCT000100_PRICELIST_299";
 
         //reset test data
         redisTemplate.delete( key );

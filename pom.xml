@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>boots</groupId>
+    <groupId>pd.workshop</groupId>
     <artifactId>spring-boot-worshop</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
@@ -12,7 +12,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>1.5.8.RELEASE</version>
+        <version>1.5.10.RELEASE</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
 
@@ -25,5 +25,7 @@
         <module>security-rest</module>
         <module>redis-and-cache</module>
         <module>test-env</module>
+        <module>neo4j</module>
+        <module>katas/testwithboot</module>
     </modules>
 </project>

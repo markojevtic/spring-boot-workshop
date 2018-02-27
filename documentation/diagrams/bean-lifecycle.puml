@@ -1,0 +1,10 @@
+@startuml
+ :Initialization;
+ :Populate properties;
+ : *Aware methods(ApplicationContextAware, etc);
+ :BeanPostProcessor.preProcessBeforeInitialization;
+ :@PostConstructor;
+ :InitializingBean.afetPropertiesSet;
+ :BeanPostProcessor.postProcessBeforeInitialization;
+ #Green:Bean is ready for use;
+@enduml

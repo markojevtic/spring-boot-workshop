@@ -8,9 +8,7 @@ The repository is a collection of materials for spring boot workshop. It contain
 #### Required knowledge
 Before then we start with training, everyone has to be familiar with the following things:
 * Java 8 - especially basic of stream API and lambdas. 
-* [Lombok](https://projectlombok.org)  - it’s small library, but very useful. JavaMagazin [tutorial](http://www.javamagazine.mozaicreader.com/MayJune2017/Twitter#&pageSet=10&page=0&contentItem=undefined).
 * Concept of JUnit with Mockito testing.
-* Concept of dependency injection in Spring.
 * Maven 
 * Git
 

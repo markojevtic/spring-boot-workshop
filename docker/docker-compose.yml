@@ -10,3 +10,9 @@ services:
     container_name: pd-redis
     ports:
       - "6379:6379"
+  docker:
+      image: neo4j:latest
+      container_name: pd-neo4j
+      ports:
+        - "7474:7474"
+        - "7687:7687"
