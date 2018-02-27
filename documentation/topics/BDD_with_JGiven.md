@@ -90,10 +90,37 @@ and I would recommend it because of the following:
 ##### Get start with JGiven
 
 To enable JGiven in our project we have to include just JGiven dependency:
-
-
-
-
-     
-
-
+* JUnit tests:
+    * Maven:
+        ```
+        <dependency>
+            <groupId>com.tngtech.jgiven</groupId>
+            <artifactId>jgiven-junit</artifactId>
+            <version>0.15.3</version>
+            <scope>test</scope>
+        </dependency> 
+        ```
+    * Gradle:
+        ```
+        dependencies { 
+            testCompile 'com.tngtech.jgiven:jgiven-junit:0.15.3’ 
+        }
+        ``` 
+* In case of srping application you we need to add @EnableJGiven in test configuration classes
+and include following dependencies
+    * Maven
+    ```
+    <dependency>
+        <groupId>com.tngtech.jgiven</groupId>
+        <artifactId>jgiven-spring</artifactId>
+        <version>0.15.3</version>
+        <scope>test</scope>
+    </dependency> 
+    ```    
+    * Gradle:
+    ```
+    dependencies { 
+                testCompile 'com.tngtech.jgiven:jgiven-spring:0.15.3’ 
+    }
+    ```
+    
