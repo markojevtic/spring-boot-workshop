@@ -88,7 +88,6 @@ and I would recommend it because of the following:
 * easy integration in JavaEE, Spring, Selenium and Android(experimental status)
 
 ##### Get start with JGiven
-
 To enable JGiven in our project we have to include just JGiven dependency:
 * JUnit tests:
     * Maven:
@@ -103,10 +102,10 @@ To enable JGiven in our project we have to include just JGiven dependency:
     * Gradle:
         ```
         dependencies { 
-            testCompile 'com.tngtech.jgiven:jgiven-junit:0.15.3’ 
+            testCompile 'com.tngtech.jgiven:jgiven-junit:0.15.3'
         }
         ``` 
-* In case of srping application you we need to add @EnableJGiven in test configuration classes
+* In case of a Spring application you we need to add ``@EnableJGiven`` in the test configuration classes
 and include following dependencies
     * Maven
     ```
@@ -120,7 +119,164 @@ and include following dependencies
     * Gradle:
     ```
     dependencies { 
-                testCompile 'com.tngtech.jgiven:jgiven-spring:0.15.3’ 
+                testCompile 'com.tngtech.jgiven:jgiven-spring:0.15.3' 
     }
     ```
     
+##### Write JGiven test
+Every JGiven test are build from the following elements:
+* Test class with test methods, every method represent one scenario case.
+* Given classes with methods that create initial conditions.
+* When classes with methods that execute scenario.
+* Then classes with methods that checks conditions after execution of scenario.
+
+__Given, When, Then__ stages are reusable and they could be used in more than one test. That is one additional 
+benefit of using JGiven tests.
+###### Create Given classes
+As it already mentioned, Given class should provide methods that create initial system condition. 
+Every Given class should extend ``Stage<SELF>``. To make clear how to write Given class, let's write
+the given class for the bookstore example.
+```Java
+public class GivenBook extends Stage<GivenBook> {
+    @ProvidedScenarioState
+    protected Book book;
+    
+    @AfterStage
+    private void persistBookInDb() { 
+        BookDao.save(book);
+    }
+
+    @AfterScenario
+    private void cleanUpDb() {
+        BookDao.delete(book);    
+    }
+    public SELF a_book_with_id( String id ) {
+        book = new Book(id);
+        return self();    
+    }
+
+    public SELF official_release_in_$_days( int days) {        
+        book.releaseDate( today.add(days) );
+        return self();    
+    }
+}
+```
+All class fields that we create in this stage, and we want to use in another stages(given,when,then),
+we must mark with ``@ProvidedScenarioState``. In that way we say to JGiven, to pickup this property,
+and inject it in another stages. Every stage could have method that is executed just after the stage completion,
+this method must be mark ``@AfterStage``. Usually we use this method to persists stage objects into DB. 
+Also every stage could have a method that is executed after the scenario completion, it is marked by ```@AfterScenario```. This method we use to clean up
+system/db. And every stage should contain at least on stage method. Naming stage methods, doesn't follow java convention,
+but that is ok, because every method call later will be converted in a text segment in test report. One more important thing: 
+every method should return self() in order to allow fluent api.
+
+###### Create When classes
+Writing a When classes is almost identical to Given stage, but stage methods should execute scenario(calls service,
+rest, do some scenario actions). Let's write when stage for our example:
+```java
+public class WhenOrderService extends Stage<WhenOrderService> {
+    @ExpectedScenarioState    
+    protected Book book;
+    @ExpectedScenarioState
+    protected Customer customer; 
+
+    protected OrderService orderService;
+    
+    @BeforeStage
+    private void init() {
+        orderService = new OrderService();
+    }
+    
+    public WhenOrderService the_customer_order_the_book() {
+        orderService.order(customer, book); 
+        return self();    
+    }
+}
+```
+Here we have fields ``Book book`` and ``Customer customer``, both fields are marked with ``@ExpectedScenarioState``.
+This annotation tells to JGiven framework to populate those fields(similar to ```@Inject```) with values that are 
+provided/created(``@ProvidedScenarioState``) in some previous stages. Here we have one annotated method ``@BeforeStage``,
+this method will be executed first, similar to JUnit ``@Before``, usually we initialize some class property, in this case
+our ``OrderService``.  
+
+###### Create Then classes
+Then class stages should do assertion of system, and writing these classes are very similar to Given and When.
+Let's write then stage for our example:
+```java
+public class ThenLibrary extends Stage<ThenLibrary> {
+    @ExpectedScenarioState
+    protected Customer customer; 
+    
+    public ThenLibrary the_library_contains_book_with_id(String bookId) {
+        assertThat( LibraryDao.exists(customer, bookId) ).isTrue();	
+        return self();
+    }
+}
+```
+###### Create Test classes
+Every test class extends ``ScenarioTest<GIVEN,WHEN,THEN>``. By extended this class, the class inherits methods: 
+given(), when(), then() that represent default test stages. Test class should contain methods, each method test
+one scenario case. Method name of class should be similar to title of scenario case from acceptance criteria.
+To make things more clear, lets analyze test class for our example:
+```java
+public class PreOrderBookScenarioTest extends ScenarioTest<GivenBook, WhenOrder, ThenLibrary> {
+    @ScenarioStage
+    private GivenCustomer givenCustomer;
+
+    @Test @Story("Story-555333") 
+    public void premium_customer_can_order_book_earlier() {
+        final String bookId = "123";
+        
+        given().a_book_with_id( bookId )
+            .with().official_release_in_$_days(30);
+        givenCustomer.and().a_premium_customer();
+
+        when().the_customer_order_the_book();
+
+        then().the_library_contains_book_with_id(bookId);
+    }
+    
+    //Implementation of 2 other AC cases...
+}
+``` 
+As it's mentioned earlier every test has three default stages in our cases: GivenBook, WhenOrder, ThenLibrary. 
+But in many cases, these three stages are not enough for write all scenarios. Because of that JGiven provide
+as ``@ScenarioStage``, which works similar like Spring ``@Autowire`` or ``@Inject``, and set stage property. In our case
+we suppose that we have implemented GivenCustomer already. JGiven will set that property, and we can use it in test.
+In test method, we are calling first methods of given stages in order to crate initial conditions, then we call methods 
+of when stages and last methods of then stage. If you take a look to code of test method, code is very similar to
+AC from story and it's easy to read and detect why test fails if it fails. It's worth to mention that we can have
+more than one when, and more than one then stage. Let's imagine that in our case we want to check that an email 
+notification has been sent to customer, we would introduce i.e. ThanEmail stage.
+
+Also in the example we use custom ``@Story`` that extends ``@IsTag`` annotation, it allow us to do easy 
+categorization of test. It could be very useful in reports. We will talk about it in the next section. 
+
+#### Reporting
+Reporting are very important for both sides, technical and business. Technical teams, will use report 
+during development, and later to find issues if they exist. By default JGiven generates plain text report, 
+and it is shown in console(of ide). In our example if we run method written above, in console of our IDE we will 
+get following result:
+```
+Scenario: premium customer can order book earlier
+    Given a book with id 123
+        With official release in 30 days
+        And a premium customer
+    When the customer order the book
+    Then the library contains book with id 123
+``` 
+
+Beside the plain text reports, JGiven has possibility to generate HTML reports. This kind of reports
+is very useful because it could be integrated with an CLI(i.e. Jenkins). And business teams, can easy 
+track progress and status of project. To easier tracking of story, use cases, etc JGiven provide us 
+annotation ``@IsTag``, that allows easier classification of test by story, use case, and searching reports
+by them. Here is an screen shoot of HTML reports:
+
+````
+
+
+
+````
+An example of HTML reports you can find on JGiven site. 
+
+### What is the next  
