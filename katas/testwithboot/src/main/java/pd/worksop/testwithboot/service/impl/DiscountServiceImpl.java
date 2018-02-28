@@ -11,17 +11,17 @@ import pd.worksop.testwithboot.service.DiscountService;
 
 
 @Service
-public class DicountServiceImpl implements DiscountService {
+public class DiscountServiceImpl implements DiscountService {
 
     @Override
     public BigDecimal getDiscountAmount( BigDecimal price, String discountCoupon ) {
 
         try {
-            BigDecimal discounPercent = getCouponDiscount( discountCoupon );
-            if( discounPercent.compareTo( ZERO ) < 0 ) {
+            BigDecimal discountPercent = getCouponDiscount( discountCoupon );
+            if( discountPercent.compareTo( ZERO ) < 0 ) {
                 throw new InvalidCouponException();
             }
-            return price.multiply( discounPercent, DECIMAL32 )
+            return price.multiply( discountPercent, DECIMAL32 )
                     .divide( new BigDecimal( 100 ), DECIMAL32 )
                     .setScale( 2 );
         } catch( Exception ex ) {

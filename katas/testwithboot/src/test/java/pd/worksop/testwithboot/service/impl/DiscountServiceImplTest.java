@@ -10,7 +10,7 @@ import pd.worksop.testwithboot.service.DiscountService;
 
 @RunWith( SpringRunner.class )
 @SpringBootTest
-public class DicountServiceImplTest {
+public class DiscountServiceImplTest {
 
     @Autowired
     private DiscountService discountService;
