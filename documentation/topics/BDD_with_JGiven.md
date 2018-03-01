@@ -59,14 +59,14 @@ Story example:
         <b>When</b> customer orders book
         <b>Then</b> customer library contains book with id
         
-    <b>B.</b>Premium user can not order book that will be released in more than 30 days.
+    <b>B.</b>Premium user cannot order book that will be released in more than 30 days.
         <b>Given</b> a book with id
             With official release date in 31 days
             And a premium customer
         <b>When</b> customer orders book
         <b>Then</b> customer gets error message     
         
-    <b>C.</b>Standard user can not order book before official release
+    <b>C.</b>Standard user cannot order book before official release
         <b>Given</b> a book with id
             With official release date in 15 days
             And a regular customer
@@ -161,7 +161,7 @@ public class GivenBook extends Stage<GivenBook> {
     }
 }
 ```
-All class fields that we create in this stage, and we want to use in another stages(given,when,then),
+All class fields that we create in this stage, and we want to use in another stages (given, when, then),
 we must mark with ``@ProvidedScenarioState``. In that way we say to JGiven, to pickup this property,
 and inject it in another stages. Every stage could have method that is executed just after the stage completion,
 this method must be mark ``@AfterStage``. Usually we use this method to persists stage objects into DB. 
@@ -249,7 +249,7 @@ AC from the story and it's easy to read and detect why test fails if it fails. I
 more than one when/then stage. Let's imagine that in our case we want to check that an email 
 notification has been sent to customer, we would introduce i.e. ThanEmail stage.
 
-Also in the example we use custom ``@Story`` that extends ``@IsTag`` annotation, it allow us to do easy 
+Also in the example we use custom ``@Story`` that extends ``@IsTag`` annotation, it allows us to do easy 
 categorization of test. It could be very useful in reports. We will talk about it in the next section. 
 
 #### Reporting
@@ -270,7 +270,7 @@ Beside the plain text reports, JGiven has possibility to generate HTML reports. 
 is very useful because it could be integrated with an CLI(i.e. Jenkins). And business teams, can easy 
 track progress and status of project. To easier tracking of story, use cases, etc JGiven provide us 
 annotation ``@IsTag``, that allows easier classification and searching reports
-by them. Here is an screen shoot of HTML reports:
+by them. Here is a screen shoot of a HTML reports
 ![HTML report example](../images/JGivenHtmlReport.png)
 If you are interested in to see how HTML report works and looks, 
 you can see and play with it on [JGiven's own tests](http://jgiven.org/jgiven-report/html5/#/all?page=1&itemsPerPage=40)
