@@ -3,7 +3,7 @@
 ## Why do we should write tests
 
 Many young and less experienced developers think that writing test is waste of time, 
-and unnecessary work. But everyone who has experience with a big project and project that lasts long time, 
+and unnecessary work. But everyone who has experience with a big/long term project, 
 does not share that opinion. First, with a test you assure that your code work as it expected with given inputs,
 and second every later change of your code will be easier and safer because tests will warm developer if hi/she breaks 
 functionality. 
@@ -239,7 +239,7 @@ public class PreOrderBookScenarioTest extends ScenarioTest<GivenBook, WhenOrder,
     //Implementation of 2 other AC cases...
 }
 ``` 
-As it's mentioned earlier every test has three default stages in our cases: GivenBook, WhenOrder, ThenLibrary. 
+As it's mentioned earlier every test has three default stages, in our cases: GivenBook, WhenOrder, ThenLibrary. 
 But in many cases, these three stages are not enough for write all scenarios. Because of that JGiven provide
 as ``@ScenarioStage``, which works similar like Spring ``@Autowire`` or ``@Inject``, and set stage property. In our case
 we suppose that we have implemented GivenCustomer already. JGiven will set that property, and we can use it in test.
@@ -271,12 +271,11 @@ is very useful because it could be integrated with an CLI(i.e. Jenkins). And bus
 track progress and status of project. To easier tracking of story, use cases, etc JGiven provide us 
 annotation ``@IsTag``, that allows easier classification of test by story, use case, and searching reports
 by them. Here is an screen shoot of HTML reports:
+![HTML report example](../images/JGivenHtmlReport.png)
+If you are interested in to see how HTML report works and looks, 
+you can see and play with it on [JGiven's own tests](http://jgiven.org/jgiven-report/html5/#/all?page=1&itemsPerPage=40)
 
-````
-
-
-
-````
-An example of HTML reports you can find on JGiven site. 
-
-### What is the next  
+### What next  
+If you want to make your organization more professional, improve your development process and
+rise quality of your product, you should try BDD and JGiven. More about JGiven you will find on [JGiven page](http://jgiven.org/userguide/).
+ 
