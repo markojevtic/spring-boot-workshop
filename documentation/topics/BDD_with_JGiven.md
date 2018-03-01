@@ -3,17 +3,17 @@
 ## Why do we should write tests
 
 Many young and less experienced developers think that writing test is waste of time, 
-and unnecessary work. But everyone who has experience with a big/long term project, 
+and unnecessary work. But everyone who has experience with a big/long-term project, 
 does not share that opinion. First, with a test you assure that your code work as it expected with given inputs,
-and second every later change of your code will be easier and safer because tests will warm developer if hi/she breaks 
-functionality. 
+and second every later change of your code will be easier and safer, tests will warm developer if developer breaks 
+a functionality. 
 
 Many times I've heard: "My code works, I don't need to test it.",  let's suppose that is true, and put yourself in position 
-that you have to add new functionality in an existing complex code, how and that code is written by someone with the same thinking. 
-If there are no tests, how you will know that you don't break existing functionality. Literally you will hate that person. 
-Or just imagine a pilot, that is overconfident and doesn't do all necessary checking, why to waste time, and repeat all procedures. 
-Will you fly with him? I'm sure that answer is "No, he isn't professional". Is the same with the programing, why someone should hire 
-a developer who is not professional.
+that you have to add new functionality in an existing complex code. Let's suppose that code is written by someone with the same thinking,
+that his code works. If there are no tests, how you will know that you don't break existing functionality. Literally you will hate that person. 
+Or just imagine a pilot, that is overconfident and does npt do all necessary checking, why to waste time, and repeat all procedures, he knows everything is OK. 
+Will you fly with him? I'm sure that answer is "No, he isn't professional". Is the same with the programmers, why someone should hire 
+a programmer who is not professional.
 
 ##  What is Behaviour-Driver Development
 
@@ -34,7 +34,7 @@ are written in ubiquitous language and they have following structure:
 A short description, that contains:
 * __Who__ - the actor who derives business benefit from the story.
 * __What__ - effect the stakeholder wants the story have.
-* __Why__ - business value the stakeholder will derive from this effect.  
+* __Why__ - business value that stakeholder will derive from this effect.  
 ###### Acceptance criteria
 A description of each specific case of the narrative. Such a scenario has the following structure:
 * __Given__ - the initial condition that is assumed to be true at the beginning of the scenario.
@@ -43,7 +43,7 @@ A description of each specific case of the narrative. Such a scenario has the fo
 
 Story example:
 <pre>
-<b>Title</b>: Premium customer can preorder a book before official release
+<b>Title</b>: Premium customer can preorder a book before official release date
 
 <b>Description</b>:
     As a book seller,
@@ -77,15 +77,15 @@ Story example:
 #### BDD on technical teams side
 For technical teams, BDD tells teams how to write tests which show that writen code
 works in all scenario cases as it's expected. Test should express it in a natural language,
-that non-technical person can understand it. It should be close to acceptance criteria from story as
-it is possible. To achieve that, developers use many different testing framework(i.e. Cucumber, JBehave, etc).
+that non-technical person can understand it. It should be close/similar to acceptance criteria from story as much as
+possible. To achieve that, developers use many different testing framework(i.e. Cucumber, JBehave, etc).
 On the last project I've used the JGive, which is not so popular, but it's very good for Java developers,
 and I would recommend it because of the following:
 * write scenarios in plane Java using fluent API
 * small and easy to learn
 * generates reports readable by business people in various formats(text, json, html)
-* open source, it's mainly developed by German company TNG, but it's open source an every one can join development
-* easy integration in JavaEE, Spring, Selenium and Android(experimental status)
+* open source, it's mainly developed by German company TNG, but it's open source an everyone can join development
+* easy integration wit JavaEE, Spring, Selenium and Android(experimental status)
 
 ##### Get start with JGiven
 To enable JGiven in our project we have to include just JGiven dependency:
@@ -105,7 +105,7 @@ To enable JGiven in our project we have to include just JGiven dependency:
             testCompile 'com.tngtech.jgiven:jgiven-junit:0.15.3'
         }
         ``` 
-* In case of a Spring application you we need to add ``@EnableJGiven`` in the test configuration classes
+* In case of a Spring application you we need to add ``@EnableJGiven`` in the test configuration classe
 and include following dependencies
     * Maven
     ```
@@ -150,12 +150,12 @@ public class GivenBook extends Stage<GivenBook> {
     private void cleanUpDb() {
         BookDao.delete(book);    
     }
-    public SELF a_book_with_id( String id ) {
+    public GivenBook a_book_with_id( String id ) {
         book = new Book(id);
         return self();    
     }
 
-    public SELF official_release_in_$_days( int days) {        
+    public GivenBook official_release_in_$_days( int days) {        
         book.releaseDate( today.add(days) );
         return self();    
     }
@@ -166,12 +166,12 @@ we must mark with ``@ProvidedScenarioState``. In that way we say to JGiven, to p
 and inject it in another stages. Every stage could have method that is executed just after the stage completion,
 this method must be mark ``@AfterStage``. Usually we use this method to persists stage objects into DB. 
 Also every stage could have a method that is executed after the scenario completion, it is marked by ```@AfterScenario```. This method we use to clean up
-system/db. And every stage should contain at least on stage method. Naming stage methods, doesn't follow java convention,
+system/db. And every stage should contain at least one stage method. Naming stage methods, doesn't follow java convention,
 but that is ok, because every method call later will be converted in a text segment in test report. One more important thing: 
-every method should return self() in order to allow fluent api.
+every method should return self() in order to allow fluent API.
 
 ###### Create When classes
-Writing a When classes is almost identical to Given stage, but stage methods should execute scenario(calls service,
+Writing a When class is almost identical to Given stage, but stage methods should execute scenario(calls service,
 rest, do some scenario actions). Let's write when stage for our example:
 ```java
 public class WhenOrderService extends Stage<WhenOrderService> {
@@ -214,7 +214,7 @@ public class ThenLibrary extends Stage<ThenLibrary> {
 }
 ```
 ###### Create Test classes
-Every test class extends ``ScenarioTest<GIVEN,WHEN,THEN>``. By extended this class, the class inherits methods: 
+Every test class extends ``ScenarioTest<GIVEN,WHEN,THEN>``. By extending this class, the class inherits methods: 
 given(), when(), then() that represent default test stages. Test class should contain methods, each method test
 one scenario case. Method name of class should be similar to title of scenario case from acceptance criteria.
 To make things more clear, lets analyze test class for our example:
@@ -241,12 +241,12 @@ public class PreOrderBookScenarioTest extends ScenarioTest<GivenBook, WhenOrder,
 ``` 
 As it's mentioned earlier every test has three default stages, in our cases: GivenBook, WhenOrder, ThenLibrary. 
 But in many cases, these three stages are not enough for write all scenarios. Because of that JGiven provide
-as ``@ScenarioStage``, which works similar like Spring ``@Autowire`` or ``@Inject``, and set stage property. In our case
+us ``@ScenarioStage``, which works similar like Spring ``@Autowire`` or ``@Inject``, and set stage property. In our case
 we suppose that we have implemented GivenCustomer already. JGiven will set that property, and we can use it in test.
 In test method, we are calling first methods of given stages in order to crate initial conditions, then we call methods 
 of when stages and last methods of then stage. If you take a look to code of test method, code is very similar to
-AC from story and it's easy to read and detect why test fails if it fails. It's worth to mention that we can have
-more than one when, and more than one then stage. Let's imagine that in our case we want to check that an email 
+AC from the story and it's easy to read and detect why test fails if it fails. It's worth to mention that we can have
+more than one when/then stage. Let's imagine that in our case we want to check that an email 
 notification has been sent to customer, we would introduce i.e. ThanEmail stage.
 
 Also in the example we use custom ``@Story`` that extends ``@IsTag`` annotation, it allow us to do easy 
@@ -255,7 +255,7 @@ categorization of test. It could be very useful in reports. We will talk about i
 #### Reporting
 Reporting are very important for both sides, technical and business. Technical teams, will use report 
 during development, and later to find issues if they exist. By default JGiven generates plain text report, 
-and it is shown in console(of ide). In our example if we run method written above, in console of our IDE we will 
+and it is shown in console(of IDE). In our example if we run method written above, in console of our IDE we will 
 get following result:
 ```
 Scenario: premium customer can order book earlier
@@ -266,10 +266,10 @@ Scenario: premium customer can order book earlier
     Then the library contains book with id 123
 ``` 
 
-Beside the plain text reports, JGiven has possibility to generate HTML reports. This kind of reports
+Beside the plain text reports, JGiven has possibility to generate HTML reports. This kind of report
 is very useful because it could be integrated with an CLI(i.e. Jenkins). And business teams, can easy 
 track progress and status of project. To easier tracking of story, use cases, etc JGiven provide us 
-annotation ``@IsTag``, that allows easier classification of test by story, use case, and searching reports
+annotation ``@IsTag``, that allows easier classification and searching reports
 by them. Here is an screen shoot of HTML reports:
 ![HTML report example](../images/JGivenHtmlReport.png)
 If you are interested in to see how HTML report works and looks, 
@@ -277,5 +277,5 @@ you can see and play with it on [JGiven's own tests](http://jgiven.org/jgiven-re
 
 ### What next  
 If you want to make your organization more professional, improve your development process and
-rise quality of your product, you should try BDD and JGiven. More about JGiven you will find on [JGiven page](http://jgiven.org/userguide/).
+raise the quality of your product, you should try BDD and JGiven. More about JGiven you will find on [JGiven page](http://jgiven.org/userguide/).
  
