@@ -1,6 +1,6 @@
 # Behaviour-Driver Development with JGiven
 
-## Why do we should write tests
+## Why should we write tests
 
 Many young and less experienced developers think that writing test is waste of time, 
 and unnecessary work. But everyone who has experience with a big/long-term project, 
@@ -270,7 +270,7 @@ Beside the plain text reports, JGiven has possibility to generate HTML reports. 
 is very useful because it could be integrated with an CLI(i.e. Jenkins). And business teams, can easy 
 track progress and status of project. To easier tracking of story, use cases, etc JGiven provide us 
 annotation ``@IsTag``, that allows easier classification and searching reports
-by them. Here is a screen shoot of a HTML reports
+by them. Here is a screen shoot of an HTML report
 ![HTML report example](../images/JGivenHtmlReport.png)
 If you are interested in to see how HTML report works and looks, 
 you can see and play with it on [JGiven's own tests](http://jgiven.org/jgiven-report/html5/#/all?page=1&itemsPerPage=40)
