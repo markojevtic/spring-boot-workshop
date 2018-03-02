@@ -3,7 +3,7 @@ package pd.workshop.resthateoas.web;
 import java.util.stream.Collectors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import static org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR;
+import static org.springframework.http.HttpStatus.BAD_REQUEST;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -31,7 +31,7 @@ public class RestExceptionHandler {
                         .collect( Collectors.toList() ) )
                 .build();
 
-        return ResponseEntity.status( INTERNAL_SERVER_ERROR ).body( errorDTO );
+        return ResponseEntity.status( BAD_REQUEST ).body( errorDTO );
     }
 
 }

@@ -4,12 +4,14 @@ import org.assertj.core.util.Maps;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import static org.mockito.BDDMockito.given;
 import static org.mockito.Matchers.anyLong;
 import static org.mockito.Mockito.doThrow;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.SpyBean;
+import static org.springframework.http.HttpStatus.BAD_REQUEST;
+import static org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR;
+import static org.springframework.http.HttpStatus.NOT_FOUND;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
@@ -52,11 +54,11 @@ public class UserRestExceptionHandlingTest {
         Long id = 13L;
         mvc.perform( get( UserRest.creatSingleLink( id ).toString() )
                 .accept( MediaType.APPLICATION_JSON_UTF8 ) )
-                .andExpect( status().is4xxClientError() );
+                .andExpect( status().is( NOT_FOUND.value() ) );
 
         mvc.perform( get( UserRest.creatSingleLink( id ).toString() )
                 .accept( MediaType.APPLICATION_JSON_UTF8 ) )
-                .andExpect( status().is5xxServerError() );
+                .andExpect( status().is( INTERNAL_SERVER_ERROR.value() ) );
     }
 
     /**
@@ -75,7 +77,7 @@ public class UserRestExceptionHandlingTest {
         Long id = 13L;
         mvc.perform( get( UserRest.creatSingleLink( id ).toString() )
                 .accept( MediaType.APPLICATION_JSON_UTF8 ) )
-                .andExpect( status().isInternalServerError() )
+                .andExpect( status().is(BAD_REQUEST.value()) )
                 .andExpect( jsonPath( "$.message" ).value( anErrorText ) )
                 .andExpect( jsonPath( "$.fieldErrors" ).isArray() )
                 .andExpect( jsonPath( "$.fieldErrors[0].field" ).value( fieldName ) )
