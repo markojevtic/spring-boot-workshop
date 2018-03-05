@@ -12,7 +12,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>1.5.10.RELEASE</version>
+        <version>2.0.0.RELEASE</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
 
@@ -26,6 +26,7 @@
         <module>redis-and-cache</module>
         <module>test-env</module>
         <module>neo4j</module>
+        <module>testing</module>
         <module>katas/testwithboot</module>
     </modules>
 </project>
