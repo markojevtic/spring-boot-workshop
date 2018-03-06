@@ -1,16 +1,13 @@
 package pd.workshop.redisandcache.service;
 
 import java.util.Set;
-import java.util.SortedSet;
-import javax.annotation.PostConstruct;
-import static org.assertj.core.api.Java6Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.ApplicationContext;
-import org.springframework.data.redis.connection.RedisZSetCommands;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ZSetOperations;
 import org.springframework.data.redis.serializer.GenericToStringSerializer;
@@ -45,7 +42,7 @@ public class RedisSortedValueShowCaseTest {
         valueOps.add( key, "Value-1200", 1200 );
         valueOps.add( key, "Value-1000", 1000 );
         valueOps.add( key, "Value-1100", 1100 );
-        Set<String> result = valueOps.reverseRangeByScore( key, 0, 1112, 0L, 1L);
+        Set <String> result = valueOps.reverseRangeByScore( key, 0, 1112, 0L, 1L );
 
         assertThat( result.size() ).isEqualTo( 1 );
         assertThat( result.iterator().next() ).isEqualTo( "Value-1100" );

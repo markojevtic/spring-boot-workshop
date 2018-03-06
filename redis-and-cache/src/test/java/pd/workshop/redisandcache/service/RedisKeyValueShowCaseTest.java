@@ -1,7 +1,7 @@
 package pd.workshop.redisandcache.service;
 
 import java.util.concurrent.TimeUnit;
-import static org.assertj.core.api.Java6Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;

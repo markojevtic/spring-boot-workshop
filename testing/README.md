@@ -68,7 +68,7 @@ write three methods for every case. Usually test method executes target method a
 ### Assertion result 
 
 Spring boot by default include JUnit and AssertJ assertion, you can use them, but I would recommend using AssertJ because it provides
-fluent API assertion, which simplify writing test. You have to import static `org.assertj.core.api.Java6Assertions.assertThat`, than use
+fluent API assertion, which simplify writing test. You have to import static `org.assertj.core.api.Assertions.assertThat`, than use
 assertThat method in your test. It help you, because of fluent API, IDE will offer appropriate methods according to argument type i.e.:
 ![IntelliJ autocomplete](../documentation/images/AssertJ-autocomplete.png)
 
