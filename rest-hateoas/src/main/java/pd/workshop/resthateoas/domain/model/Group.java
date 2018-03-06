@@ -15,4 +15,5 @@ public class Group {
     private Long id;
     private String name;
     private User groupOwner;
+    private String other;
 }

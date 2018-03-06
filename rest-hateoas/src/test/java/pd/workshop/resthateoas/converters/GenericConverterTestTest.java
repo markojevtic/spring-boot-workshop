@@ -22,9 +22,16 @@ public class GenericConverterTestTest {
         Group group = Group.builder()
                 .id( 1L )
                 .name( "Test group" )
+                .other( "Should not be converted" )
                 .groupOwner( User.builder().id( 13L ).firstName( "Max" ).lastName( "Mustermann" ).build() )
                 .build();
         GroupDTO groupDTO = conversionService.convert( group, GroupDTO.class );
         assertThat(groupDTO).isNotNull();
+        assertThat(groupDTO.getName()).isEqualTo( group.getName() );
+        assertThat( groupDTO.getGroupOwner() ).isNotNull();
+        assertThat( groupDTO.getGroupOwner().getFirstName() )
+                .isEqualTo( group.getGroupOwner().getFirstName() );
+        assertThat( groupDTO.getOther() ).isNull();
+
     }
 }
