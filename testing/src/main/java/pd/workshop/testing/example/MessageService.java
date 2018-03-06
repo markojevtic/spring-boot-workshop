@@ -8,7 +8,7 @@ import pd.workshop.testing.external.InfoService;
 public class MessageService {
     private static final String MESSAGE_FORMAT = "Info: %s";
 
-    @Autowired
+    @Autowired(required = false)
     private InfoService infoService;
 
     public boolean sendInfo(String phoneNumber, String infoMessage) {
