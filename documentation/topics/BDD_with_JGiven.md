@@ -1,4 +1,4 @@
-# Behaviour-Driver Development with JGiven
+# Behaviour-Driven Development with JGiven
 
 ## Why should we write tests
 
@@ -15,9 +15,9 @@ Or just imagine a pilot, that is overconfident and does npt do all necessary che
 Will you fly with him? I'm sure that answer is "No, he isn't professional". Is the same with the programmers, why someone should hire 
 a programmer who is not professional.
 
-##  What is Behaviour-Driver Development
+##  What is Behaviour-Driven Development
 
-Behaviour-Driver Development(BDD) is an agile software development process that enhance collaboration 
+Behaviour-Driven Development(BDD) is an agile software development process that enhance collaboration 
 in a software project between developers, QAs, managers and business. Also BDD can be seen as set of 
 best for practices for using common(ubiquitous) language by technical and business teams. Therefore it should be 
 accepted by both sides. And at least it brings following benefits for both sides:
