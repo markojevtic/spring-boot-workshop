@@ -4,8 +4,8 @@
 
 Many young and less experienced developers think that writing test is waste of time, 
 and unnecessary work. But everyone who has experience with a big/long-term project, 
-does not share that opinion. First, with a test you assure that your code work as it expected with given inputs,
-and second every later change of your code will be easier and safer, tests will warm developer if developer breaks 
+does not share that opinion. First, with a test you assure that your code works as it expected with a given inputs.
+Second, every further change of your code will be easier and safer, tests will warm developer if developer breaks 
 a functionality. 
 
 Many times I've heard: "My code works, I don't need to test it.",  let's suppose that is true, and put yourself in position 
