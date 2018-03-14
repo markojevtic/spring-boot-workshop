@@ -52,11 +52,11 @@ public class UserRestExceptionHandlingTest {
                 .when( userRest ).getUser( anyLong() );
 
         Long id = 13L;
-        mvc.perform( get( UserRest.creatSingleLink( id ).toString() )
+        mvc.perform( get( UserRest.createSingleLink( id ).toString() )
                 .accept( MediaType.APPLICATION_JSON_UTF8 ) )
                 .andExpect( status().is( NOT_FOUND.value() ) );
 
-        mvc.perform( get( UserRest.creatSingleLink( id ).toString() )
+        mvc.perform( get( UserRest.createSingleLink( id ).toString() )
                 .accept( MediaType.APPLICATION_JSON_UTF8 ) )
                 .andExpect( status().is( INTERNAL_SERVER_ERROR.value() ) );
     }
@@ -75,7 +75,7 @@ public class UserRestExceptionHandlingTest {
                 .when( userRest ).getUser( anyLong() );
 
         Long id = 13L;
-        mvc.perform( get( UserRest.creatSingleLink( id ).toString() )
+        mvc.perform( get( UserRest.createSingleLink( id ).toString() )
                 .accept( MediaType.APPLICATION_JSON_UTF8 ) )
                 .andExpect( status().is(BAD_REQUEST.value()) )
                 .andExpect( jsonPath( "$.message" ).value( anErrorText ) )

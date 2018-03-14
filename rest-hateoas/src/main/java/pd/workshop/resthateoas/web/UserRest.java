@@ -10,8 +10,6 @@ import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 import static org.springframework.http.MediaType.APPLICATION_JSON_UTF8_VALUE;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -32,7 +30,7 @@ public class UserRest {
         return linkTo( UserRest.class );
     }
 
-    public static final ControllerLinkBuilder creatSingleLink( Long id ) {
+    public static final ControllerLinkBuilder createSingleLink( Long id ) {
         return linkTo( methodOn( UserRest.class ).getUser( id ) );
     }
 
@@ -47,7 +45,7 @@ public class UserRest {
     @RequestMapping( method = GET, path = "/{id}" )
     public ResponseEntity <UserDTO> getUser( @PathVariable Long id ) {
         UserDTO userDto = UserDTO.builder().userId( id ).build();
-        userDto.add( creatSingleLink( id ).withSelfRel() );
+        userDto.add( createSingleLink( id ).withSelfRel() );
         return ResponseEntity.ok( userDto );
     }
 

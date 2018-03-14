@@ -52,7 +52,7 @@ public class UserRestSpringTest {
     @Test
     public void testLinks() {
         Link resourcesLink = UserRest.createLink().withSelfRel();
-        Link singleResourceLink = UserRest.creatSingleLink( 13L ).withSelfRel();
+        Link singleResourceLink = UserRest.createSingleLink( 13L ).withSelfRel();
         assertThat( resourcesLink.getHref() ).endsWith( "/users" );
         assertThat( singleResourceLink.getHref() ).endsWith( "/users/13" );
     }
